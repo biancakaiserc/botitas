@@ -15,7 +15,6 @@ const bot = new App({
 
 bot.event("app_mention", async ({ context, event }) => {
   
-  console.log("aqui")
   try{
     await bot.client.chat.postMessage({
     token: context.botToken,
@@ -29,26 +28,22 @@ bot.event("app_mention", async ({ context, event }) => {
 
 });
 
-bot.event("message", async ({ context, event }) => {
+bot.message('<!here>', async ({ context, event }) => {
 
-  debugger
+  console.log("tem @here")
 
-  //if message contains @here
-  if(event.text.includes("hehe")=="true"){
-      console.log("tem @here")
-
-      try{
-        console.log("entrou")
-        await bot.client.chat.postMessage({
-        token: context.botToken,
-        channel: event.channel,
-        text: `Olá <@${event.user}> por favor não use @here`
-      });
-      }
-      catch (e) {
-        console.log(`error responding ${e}`);
-      }
-  }  
+  try{
+    console.log("entrou")
+    await bot.client.chat.postMessage({
+    token: context.botToken,
+    channel: event.channel,
+    thread_ts: event.ts,
+    text: `Olá <@${event.user}> por favor não use @here`
+  });
+  }
+  catch (e) {
+    console.log(`error responding ${e}`);
+  }
 
 });
 
