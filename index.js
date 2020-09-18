@@ -13,32 +13,14 @@ const bot = new App({
   console.log('⚡️ Bolt app is running!');
 })();
 
-bot.event("app_mention", async ({ context, event }) => {
-  
-  try{
-    await bot.client.chat.postMessage({
-    token: context.botToken,
-    channel: event.channel,
-    text: `Hey yoo <@${event.user}> you mentioned me`
-  });
-  }
-  catch (e) {
-    console.log(`error responding ${e}`);
-  }
-
-});
-
 bot.message('<!here>', async ({ context, event }) => {
 
-  console.log("tem @here")
-
   try{
-    console.log("entrou")
     await bot.client.chat.postMessage({
     token: context.botToken,
     channel: event.channel,
     thread_ts: event.ts,
-    text: `Olá <@${event.user}> por favor não use @here`
+    text: `Olá <@${event.user}>, neste canal evitamos o uso do @here pois notifica muitas pessoas. Que tal considerar mencionar um grupo de usuários específico na próxima vez?`
   });
   }
   catch (e) {
@@ -46,6 +28,4 @@ bot.message('<!here>', async ({ context, event }) => {
   }
 
 });
-
-
 
